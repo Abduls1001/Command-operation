@@ -1,0 +1,5 @@
+# AI Operations Command Center — backend dependencies
+# Phase 1: foundation only. Add dependencies in the phase that needs them.
+
+fastapi==0.115.6
+uvicorn[standard]==0.34.0

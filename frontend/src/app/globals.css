@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/*
+ * Phase 2 — Website Shell: the project's visual language.
+ *
+ * These tokens are the base every subsequent UI phase (3–8) builds on, so
+ * they're chosen deliberately here rather than left to accumulate ad hoc.
+ * Changing them later is expensive — see DEVELOPMENT_PLAN.md's note on
+ * Phase 2 and CURRENT_STATE.md's "Known Risks Carried Forward".
+ *
+ * Design direction: a light, neutral content surface with a fixed dark
+ * sidebar — a common, legible pattern for operational/NOC-style tools, and a
+ * deliberate fit for a "command center" product. The sidebar's theme is
+ * intentionally independent of the content area's theme; it does not follow
+ * the reader's OS light/dark preference, to keep the navigation chrome
+ * visually stable and recognisable regardless of content theme.
+ *
+ * Typography stays on a system font stack (see Phase 1 note) — no network
+ * access needed at build time, and it reads cleanly at the small sizes an
+ * information-dense operations UI needs.
+ */
+
+:root {
+  /* Content surface */
+  --background: #f8fafc; /* slate-50 */
+  --surface: #ffffff; /* cards, panels, the header bar */
+  --border: #e2e8f0; /* slate-200 */
+  --foreground: #0f172a; /* slate-900 */
+  --muted: #64748b; /* slate-500 — secondary text */
+
+  /* Accent — used for active nav state, primary actions, links */
+  --accent: #4f46e5; /* indigo-600 */
+  --accent-foreground: #ffffff;
+  --accent-muted: #eef2ff; /* indigo-50 */
+
+  /* Status colors — reserved for later phases (incident severity, action
+     outcome, etc.), defined now so every later phase draws from one palette
+     instead of inventing colors per component. */
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --info: #2563eb;
+
+  /* Sidebar — deliberately fixed-dark, independent of content theme */
+  --sidebar-bg: #0f172a; /* slate-900 */
+  --sidebar-border: #1e293b; /* slate-800 */
+  --sidebar-text: #cbd5e1; /* slate-300 */
+  --sidebar-text-muted: #64748b; /* slate-500 */
+  --sidebar-active-bg: #1e293b; /* slate-800 */
+  --sidebar-active-text: #ffffff;
+  --sidebar-accent: #818cf8; /* indigo-400 — visible against the dark sidebar */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-muted: var(--accent-muted);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+
+  --color-sidebar-bg: var(--sidebar-bg);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-text: var(--sidebar-text);
+  --color-sidebar-text-muted: var(--sidebar-text-muted);
+  --color-sidebar-active-bg: var(--sidebar-active-bg);
+  --color-sidebar-active-text: var(--sidebar-active-text);
+  --color-sidebar-accent: var(--sidebar-accent);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
