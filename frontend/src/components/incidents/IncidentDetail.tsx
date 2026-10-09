@@ -6,21 +6,12 @@ import { Card } from "@/components/ui/Card";
 import { EmptyState } from "@/components/ui/EmptyState";
 import type { Incident } from "@/lib/mock/incidents";
 import { formatRelativeToDemoNow } from "@/lib/mock/incidents";
+import { getInvestigationsByIncidentId } from "@/lib/mock/investigations";
 
 import { IncidentSeverityBadge } from "./IncidentSeverityBadge";
 import { IncidentStatusBadge } from "./IncidentStatusBadge";
 
 const LIFECYCLE_SECTIONS = [
-  {
-    title: "Investigation",
-    description:
-      "The step-by-step timeline of how the AI worked this incident: reasoning, tools invoked, and evidence returned at each step.",
-  },
-  {
-    title: "Evidence",
-    description:
-      "Factual findings collected during the investigation, each attributed to a source system, a time, and a tool call.",
-  },
   {
     title: "Root Cause",
     description: "The most likely underlying reason for this incident, with a stated confidence level.",
@@ -110,6 +101,7 @@ export function IncidentDetail({ incident }: IncidentDetailProps) {
       </Card>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <InvestigationLinkCard incidentId={incident.id} />
         {LIFECYCLE_SECTIONS.map((section) => (
           <Card key={section.title}>
             <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3">
@@ -125,5 +117,54 @@ export function IncidentDetail({ incident }: IncidentDetailProps) {
         ))}
       </div>
     </div>
+  );
+}
+
+/**
+ * The "Investigation" lifecycle card, upgraded in Phase 5: if a real
+ * investigation exists for this incident (lib/mock/investigations.ts), it
+ * links straight into that investigation's workspace instead of showing a
+ * generic "not built yet" placeholder. Incidents with no investigation yet
+ * (e.g. a closed incident that was handled manually) still show the
+ * original placeholder.
+ */
+function InvestigationLinkCard({ incidentId }: { incidentId: string }) {
+  const investigations = getInvestigationsByIncidentId(incidentId);
+
+  if (investigations.length === 0) {
+    return (
+      <Card>
+        <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3">
+          <h3 className="text-sm font-semibold text-foreground">Investigation</h3>
+          <Badge variant="accent">Coming in a later phase</Badge>
+        </div>
+        <EmptyState
+          icon={<ClockIcon className="h-5 w-5" />}
+          title="No investigation yet"
+          description="No investigation has been started for this incident."
+        />
+      </Card>
+    );
+  }
+
+  return (
+    <Card>
+      <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3">
+        <h3 className="text-sm font-semibold text-foreground">Investigation</h3>
+        <Badge variant="neutral">{investigations.length} linked</Badge>
+      </div>
+      <ul className="divide-y divide-border">
+        {investigations.map((investigation) => (
+          <li key={investigation.id} className="px-4 py-3">
+            <Link
+              href={`/investigations/${investigation.id}`}
+              className="text-sm font-medium text-accent hover:underline"
+            >
+              {investigation.id} &middot; {investigation.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </Card>
   );
 }

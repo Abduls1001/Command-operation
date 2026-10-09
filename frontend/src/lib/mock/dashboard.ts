@@ -36,15 +36,6 @@ export interface OperationalHealthItem {
 export type IncidentSeverity = "critical" | "high" | "medium" | "low";
 export type IncidentStatus = "open" | "investigating" | "awaiting_approval" | "resolved";
 
-export interface IncidentSummaryItem {
-  id: string;
-  title: string;
-  severity: IncidentSeverity;
-  status: IncidentStatus;
-  detectedAt: string;
-  description: string;
-}
-
 export type AiActivityType =
   | "investigation_started"
   | "evidence_collected"
@@ -72,41 +63,6 @@ export interface SystemStatusItem {
 /** Page-header "last updated" placeholder. Static, per Phase 3 scope. */
 export const LAST_UPDATED = "Today at 9:42 AM";
 
-export const KPI_METRICS: KpiMetric[] = [
-  {
-    id: "active-incidents",
-    label: "Active Incidents",
-    value: "3",
-    trend: "up",
-    delta: "+1 vs yesterday",
-    tone: "negative",
-  },
-  {
-    id: "revenue-today",
-    label: "Revenue Today",
-    value: "$84,210",
-    trend: "down",
-    delta: "-12.4% vs forecast",
-    tone: "negative",
-  },
-  {
-    id: "orders-today",
-    label: "Orders Today",
-    value: "1,284",
-    trend: "down",
-    delta: "-8.1% vs forecast",
-    tone: "negative",
-  },
-  {
-    id: "system-health",
-    label: "System Health",
-    value: "71%",
-    trend: "down",
-    delta: "5 of 7 systems operational",
-    tone: "neutral",
-  },
-];
-
 /** Quick-glance strip — the core systems most likely to explain a sales drop. */
 export const OPERATIONAL_HEALTH: OperationalHealthItem[] = [
   {
@@ -132,36 +88,6 @@ export const OPERATIONAL_HEALTH: OperationalHealthItem[] = [
     name: "Inventory",
     status: "operational",
     detail: "Stock levels within expected range",
-  },
-];
-
-export const ACTIVE_INCIDENTS: IncidentSummaryItem[] = [
-  {
-    id: "INC-2031",
-    title: "Checkout success rate dropped sharply",
-    severity: "critical",
-    status: "investigating",
-    detectedAt: "22 minutes ago",
-    description:
-      "Completed orders are down 34% versus forecast while attempted orders remain normal. Primary payment gateway error rate is elevated over its 7-day baseline.",
-  },
-  {
-    id: "INC-2030",
-    title: "Elevated dispatch delays — West Coast warehouse",
-    severity: "medium",
-    status: "awaiting_approval",
-    detectedAt: "1 hour 40 minutes ago",
-    description:
-      "An inventory sync delay is causing late fulfillment on approximately 40 orders. A recommended fix is queued for approval.",
-  },
-  {
-    id: "INC-2027",
-    title: "Intermittent website 502s during traffic spike",
-    severity: "low",
-    status: "resolved",
-    detectedAt: "Yesterday, 6:15 PM",
-    description:
-      "A brief error-rate spike coincided with a CDN failover during a traffic surge. Verification confirmed recovery within minutes.",
   },
 ];
 

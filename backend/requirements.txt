@@ -3,3 +3,11 @@
 
 fastapi==0.115.6
 uvicorn[standard]==0.34.0
+
+# Phase 10 — database
+sqlalchemy==2.1.1
+psycopg[binary]==3.2.12
+python-dotenv==1.0.1
+
+# Phase 14 — Gemini AI agent
+google-genai

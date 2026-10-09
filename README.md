@@ -157,6 +157,8 @@ dependencies it does not have is worse than none.
 | `npm run build` | Production build |
 | `npm run start` | Serve the production build |
 | `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript check |
+| `npm test` | Frontend tests (Vitest) |
 
 **Backend** (from `backend/`, with the venv active)
 
@@ -165,6 +167,8 @@ dependencies it does not have is worse than none.
 | `uvicorn app.main:app --reload --port 8000` | Development server with hot reload |
 | `pip install -r requirements.txt` | Install dependencies |
 | `pip freeze > requirements.txt` | Update the dependency lockfile |
+| `pip install -r requirements-dev.txt` | Install test dependencies |
+| `pytest` | Backend tests (in-memory SQLite; no PostgreSQL or LLM needed) |
 
 ---
 
